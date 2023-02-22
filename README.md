@@ -1,2 +1,2 @@
-# Responsive_sidebar
- Responsive Sidebar
+simple timer/counter
+will add feature like lap
