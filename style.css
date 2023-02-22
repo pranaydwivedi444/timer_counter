@@ -86,4 +86,8 @@ body {
   .btn {
     margin: 0.3rem 0.3rem;
   }
+  .timer {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
