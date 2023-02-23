@@ -4,6 +4,8 @@ const appendMinute = document.querySelector(".minute");
 const btnStart = document.querySelector(".start");
 const btnStop = document.querySelector(".stop");
 const btnReset = document.querySelector(".reset");
+const btnLap = document.querySelector(".lap");
+const liContainer = document.querySelector(".lap-li");
 
 let hour = 0;
 let minute = 0;
@@ -52,6 +54,16 @@ const stopTimer = function () {
   buttonColorChange(btnStop);
 };
 
+const lapTime = function () {
+  if (!start) return;
+  let html = ` <div class="lap__details">
+  <span class="lap__icon">🏃‍♂️</span>
+  <span class="lap__time">${appendHour.innerHTML}:${appendMinute.innerHTML}:${appendSecond.innerHTML}</span>
+</div>`;
+  liContainer.insertAdjacentHTML("afterend", html);
+  document.querySelector(".lap__details").style.backgroundColor = "black";
+};
+
 const buttonColorChange = function (button = 0) {
   btnStart.style.backgroundColor = "#333";
   btnStop.style.backgroundColor = "#333";
@@ -62,3 +74,4 @@ const buttonColorChange = function (button = 0) {
 btnStart.addEventListener("click", startTimer);
 btnReset.addEventListener("click", reset);
 btnStop.addEventListener("click", stopTimer);
+btnLap.addEventListener("click", lapTime);
