@@ -174,7 +174,7 @@ body {
   align-items: center;
   justify-content: center;
   color: #fff;
-  text-shadow: 1px 1px 2px black;
+  text-shadow: 3px 1px 3px black;
 }
 
 .quote-text {
@@ -188,4 +188,39 @@ body {
   font-size: 1.5vw;
   font-style: italic;
   text-align: center;
+}
+
+.ticking-clock {
+  height: 10vw;
+  max-height: 80px;
+  position: absolute;
+  display: inline-block;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media screen and (min-width: 768px) {
+  .ticking-clock {
+    height: 8vw;
+    max-height: 100px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .ticking-clock {
+    height: 6vw;
+    max-height: 120px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .ticking-clock {
+    height: 5vw;
+    max-height: 150px;
+  }
+}
+
+.hidden {
+  display: none;
 }

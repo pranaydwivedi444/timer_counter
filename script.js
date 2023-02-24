@@ -9,7 +9,7 @@ const liContainer = document.querySelector(".laps-list");
 const toggleIcon = document.querySelector(".toggle-icon");
 const sidebarContainer = document.querySelector(".sidebar-container");
 const quoteContainer = document.querySelector(".quotes-container");
-
+const tickClock = document.querySelector(".ticking-clock");
 let lapsData = JSON.parse(localStorage.getItem("laps")) || [];
 let hour = 0;
 let minute = 0;
@@ -97,6 +97,8 @@ const buttonColorChange = function (button = 0) {
   if (button) {
     button.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
   }
+  if (start) tickClock.classList.remove("hidden");
+  else tickClock.classList.add("hidden");
 };
 
 function clearLapContainer() {
