@@ -9,7 +9,7 @@ const liContainer = document.querySelector(".laps-list");
 const toggleIcon = document.querySelector(".toggle-icon");
 const sidebarContainer = document.querySelector(".sidebar-container");
 const quoteContainer = document.querySelector(".quotes-container");
-
+const tickClock = document.querySelector(".ticking-clock");
 let lapsData = JSON.parse(localStorage.getItem("laps")) || [];
 let hour = 0;
 let minute = 0;
@@ -18,12 +18,6 @@ let start = false;
 let intervalId;
 let isPaused = false;
 let lapCount;
-if (lapsData.length) {
-  lapCount = lapsData[lapsData.length - 1].count;
-  renderLaps();
-} else {
-  lapCount = 0;
-}
 
 function startCounter() {
   if (!start) return;
@@ -103,6 +97,8 @@ const buttonColorChange = function (button = 0) {
   if (button) {
     button.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
   }
+  if (start) tickClock.classList.remove("hidden");
+  else tickClock.classList.add("hidden");
 };
 
 function clearLapContainer() {
@@ -110,14 +106,6 @@ function clearLapContainer() {
     liContainer.removeChild(liContainer.firstChild);
   }
 }
-btnStart.addEventListener("click", startTimer);
-btnReset.addEventListener("click", reset);
-btnStop.addEventListener("click", stopTimer);
-btnLap.addEventListener("click", lapTime);
-
-toggleIcon.addEventListener("click", () => {
-  sidebarContainer.classList.toggle("show-sidebar");
-});
 
 // localStorage.removeItem("laps");
 
@@ -139,4 +127,22 @@ function getRandomQuote() {
     .catch((error) => console.error(error));
 }
 
-getRandomQuote();
+function init() {
+  btnStart.addEventListener("click", startTimer);
+  btnReset.addEventListener("click", reset);
+  btnStop.addEventListener("click", stopTimer);
+  btnLap.addEventListener("click", lapTime);
+
+  toggleIcon.addEventListener("click", () => {
+    sidebarContainer.classList.toggle("show-sidebar");
+  });
+  getRandomQuote();
+  if (lapsData.length) {
+    lapCount = lapsData[lapsData.length - 1].count;
+    renderLaps();
+  } else {
+    lapCount = 0;
+  }
+}
+
+init();
