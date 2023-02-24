@@ -8,6 +8,8 @@ const btnLap = document.querySelector(".lap");
 const liContainer = document.querySelector(".laps-list");
 const toggleIcon = document.querySelector(".toggle-icon");
 const sidebarContainer = document.querySelector(".sidebar-container");
+const quoteContainer = document.querySelector(".quotes-container");
+
 let lapsData = JSON.parse(localStorage.getItem("laps")) || [];
 let hour = 0;
 let minute = 0;
@@ -118,3 +120,23 @@ toggleIcon.addEventListener("click", () => {
 });
 
 // localStorage.removeItem("laps");
+
+function getRandomQuote() {
+  fetch("https://api.quotable.io/random?tags=famous-quotes")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      const quote = data.content;
+      const author = data.author || "Unknown";
+      const quoteHTML = `
+        <div class="quote">
+          <p class="quote-text">${quote}</p>
+          <p class="quote-author">- ${author}</p>
+        </div>
+      `;
+      quoteContainer.insertAdjacentHTML("beforeend", quoteHTML);
+    })
+    .catch((error) => console.error(error));
+}
+
+getRandomQuote();
