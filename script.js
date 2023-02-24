@@ -5,14 +5,23 @@ const btnStart = document.querySelector(".start");
 const btnStop = document.querySelector(".stop");
 const btnReset = document.querySelector(".reset");
 const btnLap = document.querySelector(".lap");
-const liContainer = document.querySelector(".lap-li");
-
+const liContainer = document.querySelector(".laps-list");
+const toggleIcon = document.querySelector(".toggle-icon");
+const sidebarContainer = document.querySelector(".sidebar-container");
+let lapsData = JSON.parse(localStorage.getItem("laps")) || [];
 let hour = 0;
 let minute = 0;
 let second = 0;
 let start = false;
 let intervalId;
 let isPaused = false;
+let lapCount;
+if (lapsData.length) {
+  lapCount = lapsData[lapsData.length - 1].count;
+  renderLaps();
+} else {
+  lapCount = 0;
+}
 
 function startCounter() {
   if (!start) return;
@@ -46,24 +55,46 @@ const reset = function () {
   updateDisplay();
   buttonColorChange();
   intervalId = null;
+  localStorage.removeItem("laps");
+  lapsData = [];
+  lapCount = 0;
+  renderLaps();
 };
 
 const stopTimer = function () {
   clearInterval(intervalId);
   start = false;
   buttonColorChange(btnStop);
+  lapCount = 0;
 };
 
 const lapTime = function () {
   if (!start) return;
-  let html = ` <div class="lap__details">
-  <span class="lap__icon">🏃‍♂️</span>
-  <span class="lap__time">${appendHour.innerHTML}:${appendMinute.innerHTML}:${appendSecond.innerHTML}</span>
-</div>`;
-  liContainer.insertAdjacentHTML("afterend", html);
-  document.querySelector(".lap__details").style.backgroundColor = "black";
-};
+  lapCount++;
+  lapsData.push({
+    hour: appendHour.innerHTML,
+    minute: appendMinute.innerHTML,
+    second: appendSecond.innerHTML,
+    count: lapCount,
+  });
+  localStorage.setItem("laps", JSON.stringify(lapsData));
+  // console.log(lapsData, lapsData[lapsData.length - 1].count);
 
+  renderLaps();
+};
+function renderLaps() {
+  clearLapContainer();
+  if (!lapsData.length) return;
+  lapsData.forEach((lap) => {
+    let html = `<li class="lap__item">
+  <span class="lap__number">🏃‍♂️${lap.count}</span>
+  <span class="lap__time">${lap.hour}:${lap.minute}:${lap.second}</span>
+  </li>
+  `;
+    liContainer.insertAdjacentHTML("beforeend", html);
+    // liContainer.innerHTML = html;
+  });
+}
 const buttonColorChange = function (button = 0) {
   btnStart.style.backgroundColor = "#333";
   btnStop.style.backgroundColor = "#333";
@@ -71,7 +102,19 @@ const buttonColorChange = function (button = 0) {
     button.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
   }
 };
+
+function clearLapContainer() {
+  while (liContainer.firstChild) {
+    liContainer.removeChild(liContainer.firstChild);
+  }
+}
 btnStart.addEventListener("click", startTimer);
 btnReset.addEventListener("click", reset);
 btnStop.addEventListener("click", stopTimer);
 btnLap.addEventListener("click", lapTime);
+
+toggleIcon.addEventListener("click", () => {
+  sidebarContainer.classList.toggle("show-sidebar");
+});
+
+// localStorage.removeItem("laps");
