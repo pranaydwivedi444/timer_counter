@@ -18,12 +18,6 @@ let start = false;
 let intervalId;
 let isPaused = false;
 let lapCount;
-if (lapsData.length) {
-  lapCount = lapsData[lapsData.length - 1].count;
-  renderLaps();
-} else {
-  lapCount = 0;
-}
 
 function startCounter() {
   if (!start) return;
@@ -110,14 +104,6 @@ function clearLapContainer() {
     liContainer.removeChild(liContainer.firstChild);
   }
 }
-btnStart.addEventListener("click", startTimer);
-btnReset.addEventListener("click", reset);
-btnStop.addEventListener("click", stopTimer);
-btnLap.addEventListener("click", lapTime);
-
-toggleIcon.addEventListener("click", () => {
-  sidebarContainer.classList.toggle("show-sidebar");
-});
 
 // localStorage.removeItem("laps");
 
@@ -139,4 +125,22 @@ function getRandomQuote() {
     .catch((error) => console.error(error));
 }
 
-getRandomQuote();
+function init() {
+  btnStart.addEventListener("click", startTimer);
+  btnReset.addEventListener("click", reset);
+  btnStop.addEventListener("click", stopTimer);
+  btnLap.addEventListener("click", lapTime);
+
+  toggleIcon.addEventListener("click", () => {
+    sidebarContainer.classList.toggle("show-sidebar");
+  });
+  getRandomQuote();
+  if (lapsData.length) {
+    lapCount = lapsData[lapsData.length - 1].count;
+    renderLaps();
+  } else {
+    lapCount = 0;
+  }
+}
+
+init();
