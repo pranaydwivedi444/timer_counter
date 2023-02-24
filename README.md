@@ -2,6 +2,9 @@
 # Stopwatch
 A simple JavaScript stopwatch . The stopwatch allows you to start, pause, resume, and reset the timer, as well as record laps. The quotes generator displays random quotes at the top of the page.
 
+![Setup-Awesome-Screenshot](https://user-images.githubusercontent.com/48515987/221218258-e752f304-96cd-4f87-a98b-cbe43e13421e.gif)
+
+
 
 
 ## Features
