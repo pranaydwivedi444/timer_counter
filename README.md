@@ -7,6 +7,7 @@ A simple JavaScript stopwatch . The stopwatch allows you to start, pause, resume
 
 
 
+Live Link - https://pranaydwivedi444.github.io/timer_counter
 ## Features
 - Start the stopwatch timer.
 - Stop the stopwatch timer.
